@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useI18n } from "@/i18n/context";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { normalizeWhatsapp } from "@/lib/phone";
 import type { PlanId } from "@/lib/pricing";
 
@@ -28,7 +28,7 @@ export function Contact({ plan }: { plan?: PlanId }) {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "not_configured">("idle");
 
   function toggleLang(key: string) {
     setLanguages((prev) => (prev.includes(key) ? prev.filter((l) => l !== key) : [...prev, key]));
@@ -44,6 +44,10 @@ export function Contact({ plan }: { plan?: PlanId }) {
     const normalizedWhatsapp = normalizeWhatsapp(whatsapp);
     if (!normalizedWhatsapp || !company || !industry || !consent) {
       setStatus("error");
+      return;
+    }
+    if (!supabaseConfigured) {
+      setStatus("not_configured");
       return;
     }
     setStatus("sending");
@@ -217,6 +221,15 @@ export function Contact({ plan }: { plan?: PlanId }) {
           {status === "error" && (
             <p className="text-sm" style={{ color: "#ff8080" }}>
               {t.contact.error}
+            </p>
+          )}
+          {status === "not_configured" && (
+            <p className="text-sm" style={{ color: "#ff8080" }}>
+              This form isn't fully set up yet. Please email{" "}
+              <a href="mailto:ceo@cubifai.com" style={{ color: "#ff8080", textDecoration: "underline" }}>
+                ceo@cubifai.com
+              </a>{" "}
+              directly for now.
             </p>
           )}
 

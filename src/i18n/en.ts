@@ -11,6 +11,8 @@ export type IndustryContent = {
   h3: string;
   pairs: { problem: string; fix: string }[];
   chat: ChatMsg[];
+  /** Real demo recording, shown instead of the simulated chat when present. */
+  video?: { src: string; poster: string; label: string };
 };
 
 export const en = {
@@ -34,7 +36,7 @@ export const en = {
     eyebrow: "Always-On AI-Powered Front Desk System",
     h1: "Recover Lost Revenue in 30 Days.",
     h1Grad: "Or You Don't Pay a Riyal.",
-    sub: "CUBIFAI builds Arabic-first AI agents that answer your phone, run your WhatsApp, and recover the leads you're already losing — for real estate, healthcare, automotive and hospitality businesses across the GCC.",
+    sub: "CUBIFAI builds Arabic-first AI agents that answer your phone, run your WhatsApp, and recover the leads you're already losing, for real estate, healthcare, automotive and hospitality businesses across the GCC.",
     primary: "Start Free Trial",
     secondary: "See It In Action",
     micro: "No commitment until you see results.",
@@ -112,9 +114,9 @@ export const en = {
     eyebrow: "How it works",
     h2: "Live in Three Steps",
     steps: [
-      { title: "Built around your business", text: "Customized to exactly how you operate — your listings, pricing, policies and tone." },
+      { title: "Built around your business", text: "Customized to exactly how you operate: your listings, pricing, policies and tone." },
       { title: "Answered in under 30 seconds", text: "Every call, message and inquiry qualified and routed automatically." },
-      { title: "Every lead logged for your team", text: "Full detail on every conversation, sent straight to you — no inquiry falls through the cracks." },
+      { title: "Every lead logged for your team", text: "Full detail on every conversation, sent straight to you. No inquiry falls through the cracks." },
     ],
   },
   industries: {
@@ -141,6 +143,11 @@ export const en = {
           { from: "customer", text: "5:30" },
           { from: "agent", text: "Booked for 5:30 PM and I've sent the property location. Our advisor will meet you there." },
         ],
+        video: {
+          src: "/videos/realestate_voice_demo.mp4",
+          poster: "/videos/realestate_demo_poster.jpg",
+          label: "Play the real estate voice agent demo",
+        },
       },
       {
         tab: "Healthcare & Private Clinics",
@@ -171,6 +178,11 @@ export const en = {
           { from: "customer", kind: "voice", duration: "0:09", transcript: "Which documents do you need?" },
           { from: "agent", text: "Please send: national ID, salary certificate, the last 3 months of bank statements and your GOSI certificate." },
         ],
+        video: {
+          src: "/videos/automotive_whatsapp_demo.mp4",
+          poster: "/videos/automotive_demo_poster.jpg",
+          label: "Play the automotive WhatsApp agent demo",
+        },
       },
       {
         tab: "Hospitality & Hotels",
@@ -202,7 +214,7 @@ export const en = {
     h2: "Why Us",
     items: [
       { title: "Arabic-first, not Arabic-added.", text: "Every agent is built to think and respond in Arabic first, not translated from an English model as an afterthought." },
-      { title: "Built for how the GCC actually buys.", text: "Taqseet questions, Ejar and foreign-ownership rules, Hajj and Umrah season — the agents already know the context your customers ask about." },
+      { title: "Built for how the GCC actually buys.", text: "Taqseet questions, Ejar and foreign-ownership rules, Hajj and Umrah season: the agents already know the context your customers ask about." },
       { title: "A human is always one message away.", text: "Any call or chat can be handed to your team the instant it needs a person." },
       { title: "Free until it proves itself.", text: "14 to 30 days on your real customers, no commitment before you see results." },
     ],
@@ -275,10 +287,10 @@ export const en = {
     h2: "Frequently Asked Questions",
     items: [
       { q: "How fast can we go live?", a: "Most businesses are live within days of connecting their phone line and WhatsApp number." },
-      { q: "What happens during the free trial?", a: "You run it on real customers. Keep it only if you see results — no commitment either way." },
+      { q: "What happens during the free trial?", a: "You run it on real customers. Keep it only if you see results. No commitment either way." },
       { q: "Is our customer data safe?", a: "Yes. We only message customers who've opted in, in line with Saudi PDPL, and data is never sold." },
       { q: "Can a real person step in?", a: "Any call or chat can be handed to your staff at any moment." },
-      { q: "Do you support languages beyond Arabic and English?", a: "Yes — see the Languages section for the full list." },
+      { q: "Do you support languages beyond Arabic and English?", a: "Yes. See the Languages section for the full list." },
       { q: "What if we want to cancel?", a: "There's no long-term commitment. Cancel anytime after the trial." },
     ],
   },

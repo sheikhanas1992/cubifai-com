@@ -69,8 +69,8 @@
   --hair: rgba(52, 56, 83, 0.5);
   --chip: rgba(43, 78, 142, 0.14);
   --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.3);
-  --grad-a: #18336a;
-  --grad-b: #2b4e8e;
+  --grad-a: #6f93d8;
+  --grad-b: #a9c4f5;
   --inset-hi: rgba(255, 255, 255, 0.1);
   --pattern-stroke: rgba(43, 78, 142, 0.12);
   --radius: 28px;
@@ -95,8 +95,8 @@
     --hair: rgba(52, 56, 83, 0.5);
     --chip: rgba(43, 78, 142, 0.14);
     --shadow: 0 28px 70px -30px rgba(0, 0, 0, 0.85);
-    --grad-a: #18336a;
-    --grad-b: #2b4e8e;
+    --grad-a: #6f93d8;
+    --grad-b: #a9c4f5;
     --inset-hi: rgba(255, 255, 255, 0.1);
     --pattern-stroke: rgba(43, 78, 142, 0.12);
     color-scheme: dark;

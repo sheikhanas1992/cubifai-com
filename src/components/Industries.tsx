@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useI18n } from "@/i18n/context";
+import { VideoPlayer } from "./VideoPlayer";
 
 export function Industries() {
   const t = useI18n();
@@ -53,37 +54,41 @@ export function Industries() {
             </div>
           </div>
 
-          <div className="glass p-5">
-            <div className="flex items-center gap-2 mb-4 text-sm" style={{ color: "var(--fg2)" }}>
-              <span className="size-2 rounded-full" style={{ background: "#2fbf71" }} />
-              {t.industries.agentName} · {t.industries.online}
-            </div>
-            <div className="space-y-3">
-              {item.chat.map((m, i) => (
-                <div key={i} className={`flex ${m.from === "agent" ? "justify-start" : "justify-end"}`}>
-                  <div
-                    className="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm"
-                    style={
-                      m.from === "agent"
-                        ? { background: "var(--glass-soft)", color: "var(--fg)", border: "1px solid var(--glass-line)" }
-                        : { background: "var(--btn)", color: "var(--on-btn)" }
-                    }
-                  >
-                    {m.kind === "voice" ? (
-                      <div>
-                        <div className="text-sm font-semibold mb-0.5" style={{ opacity: 0.85 }}>
-                          {t.industries.voiceNote} · {m.duration}
+          {item.video ? (
+            <VideoPlayer src={item.video.src} poster={item.video.poster} label={item.video.label} />
+          ) : (
+            <div className="glass p-5">
+              <div className="flex items-center gap-2 mb-4 text-sm" style={{ color: "var(--fg2)" }}>
+                <span className="size-2 rounded-full" style={{ background: "#2fbf71" }} />
+                {t.industries.agentName} · {t.industries.online}
+              </div>
+              <div className="space-y-3">
+                {item.chat.map((m, i) => (
+                  <div key={i} className={`flex ${m.from === "agent" ? "justify-start" : "justify-end"}`}>
+                    <div
+                      className="max-w-[80%] rounded-2xl px-4 py-2.5 text-sm"
+                      style={
+                        m.from === "agent"
+                          ? { background: "var(--glass-soft)", color: "var(--fg)", border: "1px solid var(--glass-line)" }
+                          : { background: "var(--btn)", color: "var(--on-btn)" }
+                      }
+                    >
+                      {m.kind === "voice" ? (
+                        <div>
+                          <div className="text-sm font-semibold mb-0.5" style={{ opacity: 0.85 }}>
+                            {t.industries.voiceNote} · {m.duration}
+                          </div>
+                          <div>{m.transcript}</div>
                         </div>
-                        <div>{m.transcript}</div>
-                      </div>
-                    ) : (
-                      m.text
-                    )}
+                      ) : (
+                        m.text
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

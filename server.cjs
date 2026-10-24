@@ -21,12 +21,38 @@ const MIME = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".webp": "image/webp",
+  ".mp4": "video/mp4",
 };
 
-function serveFile(filePath, res) {
+// Video playback needs Range support (seeking, scrubbing, and some
+// browsers refuse to play a <video> at all without it), so every file is
+// served range-aware rather than special-casing video.
+function serveFile(filePath, req, res) {
   const ext = path.extname(filePath);
-  res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
-  fs.createReadStream(filePath).pipe(res);
+  const contentType = MIME[ext] || "application/octet-stream";
+  fs.stat(filePath, (err, stats) => {
+    if (err) {
+      res.writeHead(404);
+      res.end();
+      return;
+    }
+    const range = req.headers.range;
+    if (range) {
+      const match = /bytes=(\d*)-(\d*)/.exec(range);
+      const start = match[1] ? parseInt(match[1], 10) : 0;
+      const end = match[2] ? parseInt(match[2], 10) : stats.size - 1;
+      res.writeHead(206, {
+        "Content-Type": contentType,
+        "Content-Range": `bytes ${start}-${end}/${stats.size}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": end - start + 1,
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+    } else {
+      res.writeHead(200, { "Content-Type": contentType, "Content-Length": stats.size, "Accept-Ranges": "bytes" });
+      fs.createReadStream(filePath).pipe(res);
+    }
+  });
 }
 
 http
@@ -40,9 +66,9 @@ http
     }
     fs.stat(requested, (err, stats) => {
       if (!err && stats.isFile()) {
-        serveFile(requested, res);
+        serveFile(requested, req, res);
       } else {
-        serveFile(path.join(DIST, "index.html"), res);
+        serveFile(path.join(DIST, "index.html"), req, res);
       }
     });
   })

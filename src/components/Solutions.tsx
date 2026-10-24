@@ -21,8 +21,8 @@ export function Solutions() {
               <p className="mt-3 text-sm" style={{ color: "var(--fg2)" }}>
                 {a.text}
               </p>
-              <p className="mt-4 pt-4 text-xs italic" style={{ color: "var(--fg3)", borderTop: "1px solid var(--hair)" }}>
-                What it replaces: {a.replaces}
+              <p className="mt-4 pt-4 text-sm" style={{ color: "var(--fg2)", borderTop: "1px solid var(--hair)" }}>
+                <strong style={{ color: "var(--fg)" }}>What it replaces:</strong> {a.replaces}
               </p>
             </div>
           ))}

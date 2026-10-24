@@ -16,7 +16,7 @@ export function Problem() {
               <p className="mt-2 text-sm" style={{ color: "var(--fg2)" }}>
                 {s.label}
               </p>
-              <p className="mt-2 text-xs" style={{ color: "var(--fg3)" }}>
+              <p className="mt-2 text-sm" style={{ color: "var(--fg3)" }}>
                 {s.source}
               </p>
             </div>

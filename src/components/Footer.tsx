@@ -21,7 +21,7 @@ export function Footer() {
             ceo@cubifai.com
           </a>
         </div>
-        <p className="mt-6 text-xs" style={{ color: "var(--fg3)" }}>
+        <p className="mt-6 text-sm" style={{ color: "var(--fg3)" }}>
           {t.footer.copyright}
         </p>
       </div>

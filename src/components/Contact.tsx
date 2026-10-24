@@ -245,7 +245,7 @@ export function Contact({ plan }: { plan?: PlanId }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <div className="text-xs font-bold uppercase tracking-wide mb-1.5" style={{ color: "var(--fg3)" }}>
+      <div className="text-sm font-bold uppercase tracking-wide mb-1.5" style={{ color: "var(--fg3)" }}>
         {label}
       </div>
       {children}

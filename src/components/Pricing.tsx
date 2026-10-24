@@ -67,7 +67,7 @@ export function Pricing({ onSelectPlan }: { onSelectPlan: (p: PlanId) => void })
                     {t.pricing.perMonth} {t.pricing.exclVat}
                   </span>
                 </div>
-                <p className="mt-1 text-xs" style={{ color: "var(--fg3)" }}>
+                <p className="mt-1 text-sm" style={{ color: "var(--fg3)" }}>
                   {dict.setup}
                 </p>
                 <ul className="mt-5 space-y-2 flex-1">
@@ -97,7 +97,7 @@ export function Pricing({ onSelectPlan }: { onSelectPlan: (p: PlanId) => void })
           <p className="mt-6 max-w-2xl mx-auto text-sm font-semibold" style={{ color: "var(--fg2)" }}>
             {t.pricing.compare}
           </p>
-          <p className="mt-4 max-w-2xl mx-auto text-xs" style={{ color: "var(--fg3)" }}>
+          <p className="mt-4 max-w-2xl mx-auto text-sm" style={{ color: "var(--fg3)" }}>
             {t.pricing.fine}
           </p>
         </div>

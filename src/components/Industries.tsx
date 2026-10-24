@@ -71,7 +71,7 @@ export function Industries() {
                   >
                     {m.kind === "voice" ? (
                       <div>
-                        <div className="text-xs opacity-70">
+                        <div className="text-sm font-semibold mb-0.5" style={{ opacity: 0.85 }}>
                           {t.industries.voiceNote} · {m.duration}
                         </div>
                         <div>{m.transcript}</div>

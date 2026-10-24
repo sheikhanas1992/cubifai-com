@@ -57,8 +57,8 @@
   --fg: #ffffff;
   --fg2: #e9effb;
   --fg3: #c7cddb;
-  --accent: #2b4e8e;
-  --accent-text: #2b4e8e;
+  --accent: #8fb0f0;
+  --accent-text: #8fb0f0;
   --sand: #2b4e8e;
   --btn: #18336a;
   --btn-hi: #2b4e8e;
@@ -86,8 +86,8 @@
     --fg: #ffffff;
     --fg2: #e9effb;
     --fg3: #c7cddb;
-    --accent: #2b4e8e;
-    --accent-text: #2b4e8e;
+    --accent: #8fb0f0;
+    --accent-text: #8fb0f0;
     --sand: #2b4e8e;
     --glass: rgba(28, 32, 49, 0.46);
     --glass-soft: rgba(77, 92, 127, 0.08);
@@ -218,8 +218,8 @@
 }
 
 @utility eyebrow {
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-text);

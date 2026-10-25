@@ -120,7 +120,6 @@ export function Contact({ plan }: { plan?: PlanId }) {
     <section id="contact" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[800px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.contact.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.contact.h2}
           </h2>

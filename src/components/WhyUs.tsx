@@ -10,7 +10,6 @@ export function WhyUs() {
     <section className="section-y px-4">
       <div className="mx-auto max-w-[1000px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.why.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.why.h2}
           </h2>
@@ -22,7 +21,7 @@ export function WhyUs() {
               <Reveal key={it.title} delay={i * 80}>
                 <div className="glass glass-hover p-6 h-full flex gap-4">
                   <span
-                    className="flex-shrink-0 inline-flex w-11 h-11 rounded-xl items-center justify-center"
+                    className="flex-shrink-0 inline-flex w-11 h-11 rounded-full items-center justify-center"
                     style={{ background: "var(--chip)" }}
                   >
                     <Icon size={20} color="var(--accent-text)" strokeWidth={2.25} />

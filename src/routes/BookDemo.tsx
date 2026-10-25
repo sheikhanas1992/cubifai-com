@@ -23,7 +23,6 @@ export function BookDemo({ lang, dict }: { lang: Lang; dict: Dict }) {
         <main className="section-y px-4">
           <div className="mx-auto max-w-[900px]">
             <Reveal>
-              <div className="eyebrow text-center mb-3">{dict.book.eyebrow}</div>
               <h1 className="h2-section text-center" style={{ color: "var(--fg)" }}>
                 {dict.book.h2}
               </h1>

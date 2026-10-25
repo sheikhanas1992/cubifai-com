@@ -11,7 +11,6 @@ export function Industries() {
     <section id="industries" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.industries.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.industries.h2}
           </h2>

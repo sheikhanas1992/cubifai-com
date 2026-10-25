@@ -11,7 +11,6 @@ export function Pricing({ onSelectPlan }: { onSelectPlan: (p: PlanId) => void })
     <section id="pricing" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.pricing.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.pricing.h2}
           </h2>

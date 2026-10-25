@@ -8,7 +8,6 @@ export function SeeItInAction() {
     <section className="section-y px-4" style={{ background: "var(--glass-soft)" }}>
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.demos.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.demos.h2}
           </h2>

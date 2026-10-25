@@ -7,7 +7,6 @@ export function HowItWorks() {
     <section id="how" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.how.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.how.h2}
           </h2>

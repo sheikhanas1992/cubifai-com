@@ -7,7 +7,6 @@ export function Languages() {
     <section className="section-y px-4">
       <div className="mx-auto max-w-[900px] text-center">
         <Reveal>
-          <div className="eyebrow mb-3">{t.languages.eyebrow}</div>
           <h2 className="h2-section" style={{ color: "var(--fg)" }}>
             {t.languages.h2}
           </h2>

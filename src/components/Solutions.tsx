@@ -10,7 +10,6 @@ export function Solutions() {
     <section id="solutions" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.solutions.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
             {t.solutions.h2}
           </h2>
@@ -25,7 +24,7 @@ export function Solutions() {
               <Reveal key={a.name} delay={i * 80}>
                 <div className="glass glass-hover p-6 h-full">
                   <span
-                    className="inline-flex w-12 h-12 rounded-2xl items-center justify-center mb-4"
+                    className="inline-flex w-12 h-12 rounded-full items-center justify-center mb-4"
                     style={{ background: "linear-gradient(135deg, var(--grad-a), var(--grad-b))" }}
                   >
                     <Icon size={22} color="#0c0f1e" strokeWidth={2.25} />

@@ -15,10 +15,6 @@ export function Hero() {
               boxShadow: "0 8px 24px -10px rgba(111,147,216,0.45), inset 0 1px 0 rgba(255,255,255,0.08)",
             }}
           >
-            <span className="relative flex size-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "var(--accent-text)" }} />
-              <span className="relative inline-flex rounded-full size-2.5" style={{ background: "var(--accent-text)" }} />
-            </span>
             <span className="eyebrow">{t.hero.eyebrow}</span>
           </div>
           <h1 className="h2-section" style={{ fontSize: "clamp(2.1rem,4.4vw,3.2rem)", color: "var(--fg)" }}>

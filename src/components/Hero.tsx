@@ -17,7 +17,10 @@ export function Hero() {
           >
             <span className="eyebrow">{t.hero.eyebrow}</span>
           </div>
-          <h1 className="h2-section" style={{ fontSize: "clamp(2.1rem,4.4vw,3.2rem)", color: "var(--fg)" }}>
+          <h1
+            className="h2-section hero-h1"
+            style={{ fontSize: "clamp(2rem,4vw,2.9rem)", fontWeight: 700, color: "var(--fg)" }}
+          >
             {t.hero.h1} <span className="text-gradient">{t.hero.h1Grad}</span>
           </h1>
           <p className="mt-6 mx-auto lg:mx-0 max-w-xl text-lg font-medium" style={{ color: "var(--fg2)" }}>

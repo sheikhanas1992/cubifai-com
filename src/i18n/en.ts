@@ -17,9 +17,9 @@ export type IndustryContent = {
 
 export const en = {
   meta: {
-    title: "CUBIFAI | Recover Lost Revenue in 30 Days, or You Don't Pay",
+    title: "CUBIFAI | Never Lose Another Lead to a Missed Call",
     description:
-      "Recover lost revenue in 30 days, or you don't pay a riyal. Arabic-first AI voice agents and WhatsApp automation for real estate, healthcare, automotive and hospitality businesses across the GCC.",
+      "CUBIFAI's AI agents answer every call, message and query the moment it arrives, so you never lose another lead to silence. AI voice agents and WhatsApp automation for real estate, healthcare, automotive and hospitality businesses across the GCC.",
   },
   nav: {
     solutions: "Solutions",
@@ -35,9 +35,9 @@ export const en = {
   },
   hero: {
     eyebrow: "Always-On AI-Powered Front Desk System",
-    h1: "Recover Lost Revenue in 30 Days.",
-    h1Grad: "Or You Don't Pay a Riyal.",
-    sub: "CUBIFAI builds Arabic-first AI agents that answer your phone, run your WhatsApp, and recover the leads you're already losing, for real estate, healthcare, automotive and hospitality businesses across the GCC.",
+    h1: "Stop Watching Leads Slip Away.",
+    h1Grad: "Start Turning Them Into Paying Customers.",
+    sub: "Every missed call or slow reply costs you a customer. CUBIFAI's AI agents answer every call, message and query the moment it arrives, so your business never loses another lead to silence.",
     primary: "Start Free Trial",
     secondary: "See It In Action",
     micro: "No commitment until you see results.",

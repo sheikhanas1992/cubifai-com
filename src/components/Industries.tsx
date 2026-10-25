@@ -19,12 +19,12 @@ export function Industries() {
           </p>
         </Reveal>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <div className="mt-10 flex gap-3 overflow-x-auto no-scrollbar px-4 -mx-4 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:mx-0">
           {t.industries.items.map((it, i) => (
             <button
               key={it.tab}
               onClick={() => setActive(i)}
-              className="rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+              className="flex-shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-all whitespace-nowrap"
               style={
                 i === active
                   ? { background: "var(--btn)", color: "var(--on-btn)", boxShadow: "0 8px 20px -8px rgba(111,147,216,0.6)" }

@@ -33,7 +33,10 @@ export function BookDemo({ lang, dict }: { lang: Lang; dict: Dict }) {
             <Reveal delay={100}>
               <div
                 className="mt-10 glass overflow-hidden"
-                style={{ height: 720, boxShadow: "0 40px 90px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(143,176,240,0.08)" }}
+                style={{
+                  height: "clamp(520px, 85vh, 720px)",
+                  boxShadow: "0 40px 90px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(143,176,240,0.08)",
+                }}
               >
                 <iframe src={CAL_URL} title="Book a demo" className="w-full h-full" style={{ border: "none" }} />
               </div>

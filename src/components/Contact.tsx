@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { useI18n } from "@/i18n/context";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { normalizeWhatsapp } from "@/lib/phone";
+import { WEB3FORMS_ACCESS_KEY } from "@/lib/constants";
 import type { PlanId } from "@/lib/pricing";
 import { Reveal } from "./Reveal";
 
@@ -52,7 +54,16 @@ export function Contact({ plan }: { plan?: PlanId }) {
       return;
     }
     setStatus("sending");
-    const { error } = await supabase.from("leads").insert({
+    const combinedMessage = [
+      message,
+      budget && `Budget: ${budget}`,
+      decisionMaker && `Decision maker: ${decisionMaker}`,
+      activeNeed && `Need: ${activeNeed}`,
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    const insert = supabase.from("leads").insert({
       name,
       company,
       industry,
@@ -61,17 +72,30 @@ export function Contact({ plan }: { plan?: PlanId }) {
       email: email || null,
       solution: solution ? [solution] : [],
       languages,
-      message: [
-        message,
-        budget && `Budget: ${budget}`,
-        decisionMaker && `Decision maker: ${decisionMaker}`,
-        activeNeed && `Need: ${activeNeed}`,
-      ]
-        .filter(Boolean)
-        .join(" | "),
+      message: combinedMessage,
       plan_interest: plan ?? null,
       consent: true,
     });
+
+    const notify = fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `New CUBIFAI lead: ${company}`,
+        from_name: "CUBIFAI website",
+        name,
+        company,
+        industry,
+        city,
+        whatsapp: normalizedWhatsapp,
+        email,
+        message: combinedMessage,
+      }),
+    }).catch(() => {});
+
+    const { error } = await insert;
+    await notify;
     if (error) {
       console.error("lead insert failed", error);
       setStatus("error");
@@ -94,7 +118,7 @@ export function Contact({ plan }: { plan?: PlanId }) {
 
   return (
     <section id="contact" className="section-y px-4 scroll-mt-24">
-      <div className="mx-auto max-w-[700px]">
+      <div className="mx-auto max-w-[800px]">
         <Reveal>
           <div className="eyebrow text-center mb-3">{t.contact.eyebrow}</div>
           <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
@@ -105,141 +129,159 @@ export function Contact({ plan }: { plan?: PlanId }) {
           </p>
         </Reveal>
 
-        <form onSubmit={handleSubmit} className="mt-10 glass p-6 space-y-4">
-          <input
-            type="text"
-            name="website"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            className="hidden"
-            tabIndex={-1}
-            autoComplete="off"
-          />
-          <Field label={t.contact.fields.name}>
-            <input className="field" required value={name} onChange={(e) => setName(e.target.value)} />
-          </Field>
-          <Field label={t.contact.fields.company}>
-            <input className="field" required value={company} onChange={(e) => setCompany(e.target.value)} />
-          </Field>
-          <Field label={t.contact.fields.industry}>
-            <select className="field" required value={industry} onChange={(e) => setIndustry(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {INDUSTRY_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.industries[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.city}>
-            <select className="field" value={city} onChange={(e) => setCity(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {CITY_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.cities[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.whatsapp}>
-            <input className="field" required value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
-          </Field>
-          <Field label={t.contact.fields.email}>
-            <input type="email" className="field" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Field>
-          <Field label={t.contact.fields.solution}>
-            <select className="field" value={solution} onChange={(e) => setSolution(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {SOLUTION_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.solutions[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.languages}>
-            <div className="flex flex-wrap gap-2">
-              {LANG_KEYS.map((k) => (
-                <button
-                  type="button"
-                  key={k}
-                  onClick={() => toggleLang(k)}
-                  className="rounded-full px-3 py-1.5 text-sm"
-                  style={
-                    languages.includes(k)
-                      ? { background: "var(--btn)", color: "var(--on-btn)" }
-                      : { background: "var(--glass-soft)", color: "var(--fg2)", border: "1px solid var(--glass-line)" }
-                  }
-                >
-                  {t.contact.langs[k]}
-                </button>
-              ))}
+        <Reveal delay={100}>
+          <form
+            onSubmit={handleSubmit}
+            className="mt-10 glass p-8"
+            style={{ boxShadow: "0 40px 90px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(143,176,240,0.08), inset 0 1px 0 var(--inset-hi)" }}
+          >
+            <input
+              type="text"
+              name="website"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field label={t.contact.fields.name}>
+                <input className="field" required value={name} onChange={(e) => setName(e.target.value)} />
+              </Field>
+              <Field label={t.contact.fields.company}>
+                <input className="field" required value={company} onChange={(e) => setCompany(e.target.value)} />
+              </Field>
+              <Field label={t.contact.fields.industry}>
+                <Select value={industry} onChange={setIndustry} required>
+                  <option value="">{t.contact.fields.select}</option>
+                  {INDUSTRY_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.industries[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t.contact.fields.city}>
+                <Select value={city} onChange={setCity}>
+                  <option value="">{t.contact.fields.select}</option>
+                  {CITY_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.cities[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t.contact.fields.whatsapp}>
+                <input className="field" required value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+              </Field>
+              <Field label={t.contact.fields.email}>
+                <input type="email" className="field" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </Field>
+              <Field label={t.contact.fields.solution}>
+                <Select value={solution} onChange={setSolution}>
+                  <option value="">{t.contact.fields.select}</option>
+                  {SOLUTION_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.solutions[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t.contact.fields.budget}>
+                <Select value={budget} onChange={setBudget}>
+                  <option value="">{t.contact.fields.select}</option>
+                  {BUDGET_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.budgets[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t.contact.fields.decisionMaker}>
+                <Select value={decisionMaker} onChange={setDecisionMaker}>
+                  <option value="">{t.contact.fields.select}</option>
+                  {DECISION_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.decisionMakerOptions[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t.contact.fields.activeNeed}>
+                <Select value={activeNeed} onChange={setActiveNeed}>
+                  <option value="">{t.contact.fields.select}</option>
+                  {NEED_KEYS.map((k) => (
+                    <option key={k} value={k}>
+                      {t.contact.activeNeedOptions[k]}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
             </div>
-          </Field>
-          <Field label={t.contact.fields.budget}>
-            <select className="field" value={budget} onChange={(e) => setBudget(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {BUDGET_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.budgets[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.decisionMaker}>
-            <select className="field" value={decisionMaker} onChange={(e) => setDecisionMaker(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {DECISION_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.decisionMakerOptions[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.activeNeed}>
-            <select className="field" value={activeNeed} onChange={(e) => setActiveNeed(e.target.value)}>
-              <option value="">{t.contact.fields.select}</option>
-              {NEED_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {t.contact.activeNeedOptions[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label={t.contact.fields.message}>
-            <textarea className="field" rows={3} value={message} onChange={(e) => setMessage(e.target.value)} />
-          </Field>
 
-          <label className="flex items-start gap-2 text-sm" style={{ color: "var(--fg3)" }}>
-            <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
-            <span>
-              {t.contact.consentPre}
-              <a href="/privacy" style={{ color: "var(--accent-text)" }}>
-                {t.contact.consentLink}
-              </a>
-              {t.contact.consentPost}
-            </span>
-          </label>
+            <div className="mt-4">
+              <Field label={t.contact.fields.languages}>
+                <div className="flex flex-wrap gap-2">
+                  {LANG_KEYS.map((k) => (
+                    <button
+                      type="button"
+                      key={k}
+                      onClick={() => toggleLang(k)}
+                      className="rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all"
+                      style={
+                        languages.includes(k)
+                          ? { background: "var(--btn)", color: "var(--on-btn)" }
+                          : { background: "var(--glass-soft)", color: "var(--fg2)", border: "1px solid var(--glass-line)" }
+                      }
+                    >
+                      {t.contact.langs[k]}
+                    </button>
+                  ))}
+                </div>
+              </Field>
+            </div>
 
-          {status === "error" && (
-            <p className="text-sm" style={{ color: "#ff8080" }}>
-              {t.contact.error}
-            </p>
-          )}
-          {status === "not_configured" && (
-            <p className="text-sm" style={{ color: "#ff8080" }}>
-              This form isn't fully set up yet. Please email{" "}
-              <a href="mailto:ceo@cubifai.com" style={{ color: "#ff8080", textDecoration: "underline" }}>
-                ceo@cubifai.com
-              </a>{" "}
-              directly for now.
-            </p>
-          )}
+            <div className="mt-4">
+              <Field label={t.contact.fields.message}>
+                <textarea className="field" rows={3} value={message} onChange={(e) => setMessage(e.target.value)} />
+              </Field>
+            </div>
 
-          <button type="submit" disabled={status === "sending"} className="w-full rounded-full py-4 font-bold btn-primary disabled:opacity-60">
-            {status === "sending" ? t.contact.sending : t.contact.submit}
-          </button>
-        </form>
+            <label className="mt-5 flex items-start gap-2 text-sm font-medium" style={{ color: "var(--fg3)" }}>
+              <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
+              <span>
+                {t.contact.consentPre}
+                <a href="/privacy" style={{ color: "var(--accent-text)" }}>
+                  {t.contact.consentLink}
+                </a>
+                {t.contact.consentPost}
+              </span>
+            </label>
+
+            {status === "error" && (
+              <p className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
+                {t.contact.error}
+              </p>
+            )}
+            {status === "not_configured" && (
+              <p className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
+                This form isn't fully set up yet. Please email{" "}
+                <a href="mailto:ceo@cubifai.com" style={{ color: "#ff8080", textDecoration: "underline" }}>
+                  ceo@cubifai.com
+                </a>{" "}
+                directly for now.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="mt-6 w-full rounded-full py-4 font-bold btn-primary disabled:opacity-60"
+            >
+              {status === "sending" ? t.contact.sending : t.contact.submit}
+            </button>
+          </form>
+        </Reveal>
       </div>
     </section>
   );
@@ -253,5 +295,35 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       </div>
       {children}
     </label>
+  );
+}
+
+function Select({
+  value,
+  onChange,
+  required,
+  children,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative">
+      <select
+        className="field appearance-none pe-10"
+        required={required}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {children}
+      </select>
+      <ChevronDown
+        size={18}
+        className="absolute top-1/2 -translate-y-1/2 pointer-events-none"
+        style={{ color: "var(--fg3)", insetInlineEnd: 14 }}
+      />
+    </div>
   );
 }

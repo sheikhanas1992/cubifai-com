@@ -230,9 +230,15 @@
 }
 
 @utility btn-primary {
-  background: linear-gradient(180deg, var(--btn-hi), var(--btn));
+  background: linear-gradient(135deg, var(--btn-hi), var(--btn));
   color: var(--on-btn);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 24px -10px rgba(24, 51, 106, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 14px 32px -10px rgba(24, 51, 106, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 18px 40px -10px rgba(24, 51, 106, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
 }
 
 @utility eyebrow {
@@ -288,13 +294,34 @@
 
 @utility field {
   width: 100%;
-  padding: 11px 16px;
+  padding: 13px 16px;
   border-radius: 14px;
   border: 1px solid var(--glass-line);
   background: var(--glass-soft);
   color: var(--fg);
   font-size: 15px;
+  font-weight: 500;
   outline: none;
-  &:focus { border-color: var(--accent-text); }
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  &:focus {
+    border-color: var(--accent-text);
+    background: rgba(77, 92, 127, 0.14);
+    box-shadow: 0 0 0 3px rgba(143, 176, 240, 0.18);
+  }
   &::placeholder { color: var(--fg3); }
+}
+
+/* Native <select> popups are rendered by the OS/browser, outside the page's
+   compositor — they ignore backdrop-filter and render translucent colors
+   as near-opaque, so the dropdown list needs its own solid, explicit
+   colors rather than inheriting the glass background. */
+select.field {
+  color-scheme: dark;
+  background-color: var(--bg);
+}
+select.field option {
+  background-color: #141829;
+  color: var(--fg);
+  font-weight: 500;
+  padding: 10px;
 }

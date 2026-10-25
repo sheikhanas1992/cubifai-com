@@ -3,6 +3,7 @@ import { useI18n } from "@/i18n/context";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { normalizeWhatsapp } from "@/lib/phone";
 import type { PlanId } from "@/lib/pricing";
+import { Reveal } from "./Reveal";
 
 const INDUSTRY_KEYS = ["real_estate", "healthcare", "automotive", "hospitality", "other"] as const;
 const CITY_KEYS = ["riyadh", "jeddah", "makkah", "madinah", "dammam_khobar", "other_saudi", "other_gcc"] as const;
@@ -94,13 +95,15 @@ export function Contact({ plan }: { plan?: PlanId }) {
   return (
     <section id="contact" className="section-y px-4 scroll-mt-24">
       <div className="mx-auto max-w-[700px]">
-        <div className="eyebrow text-center mb-3">{t.contact.eyebrow}</div>
-        <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
-          {t.contact.h2}
-        </h2>
-        <p className="mt-4 text-center" style={{ color: "var(--fg2)" }}>
-          {t.contact.lede}
-        </p>
+        <Reveal>
+          <div className="eyebrow text-center mb-3">{t.contact.eyebrow}</div>
+          <h2 className="h2-section text-center" style={{ color: "var(--fg)" }}>
+            {t.contact.h2}
+          </h2>
+          <p className="mt-4 text-center font-medium" style={{ color: "var(--fg2)" }}>
+            {t.contact.lede}
+          </p>
+        </Reveal>
 
         <form onSubmit={handleSubmit} className="mt-10 glass p-6 space-y-4">
           <input

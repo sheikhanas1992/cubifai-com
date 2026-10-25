@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { Problem } from "./Problem";
 import { Solutions } from "./Solutions";
+import { SeeItInAction } from "./SeeItInAction";
 import { HowItWorks } from "./HowItWorks";
 import { Industries } from "./Industries";
 import { Languages } from "./Languages";
@@ -37,6 +38,7 @@ export function Site({ lang, dict }: { lang: Lang; dict: Dict }) {
           <Hero />
           <Problem />
           <Solutions />
+          <SeeItInAction />
           <HowItWorks />
           <Industries />
           <Languages />

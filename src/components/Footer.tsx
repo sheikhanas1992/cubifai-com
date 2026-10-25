@@ -7,13 +7,13 @@ export function Footer() {
     <footer className="px-4 pb-10 pt-16">
       <div className="mx-auto max-w-[1100px] glass p-8 text-center">
         <Logo variant="mark" className="h-10 w-10 mx-auto" />
-        <p className="mt-4 text-sm" style={{ color: "var(--fg2)" }}>
+        <p className="mt-4 text-sm font-semibold" style={{ color: "var(--fg2)" }}>
           {t.footer.tagline}
         </p>
-        <p className="mt-2 text-sm" style={{ color: "var(--fg3)" }}>
+        <p className="mt-2 text-sm font-medium" style={{ color: "var(--fg3)" }}>
           {t.contact.serving}
         </p>
-        <div className="mt-6 flex items-center justify-center gap-6 text-sm">
+        <div className="mt-6 flex items-center justify-center gap-6 text-sm font-semibold">
           <a href="/privacy" style={{ color: "var(--fg2)" }}>
             {t.footer.privacy}
           </a>
@@ -21,7 +21,7 @@ export function Footer() {
             ceo@cubifai.com
           </a>
         </div>
-        <p className="mt-6 text-sm" style={{ color: "var(--fg3)" }}>
+        <p className="mt-6 text-sm font-medium" style={{ color: "var(--fg3)" }}>
           {t.footer.copyright}
         </p>
       </div>

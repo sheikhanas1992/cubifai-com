@@ -153,25 +153,35 @@
   background: var(--glass);
   border: 1px solid var(--glass-line);
   border-radius: 28px;
-  -webkit-backdrop-filter: blur(28px) saturate(1.7);
-  backdrop-filter: blur(28px) saturate(1.7);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
+  backdrop-filter: blur(32px) saturate(1.8);
   box-shadow: var(--shadow), inset 0 1px 0 var(--inset-hi);
   position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    background: linear-gradient(140deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 38%);
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 42%);
+  }
+}
+
+@utility glass-hover {
+  &:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-text);
+    box-shadow: 0 32px 70px -24px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(143, 176, 240, 0.15), inset 0 1px 0 var(--inset-hi);
   }
 }
 
 @utility glass-soft {
   background: var(--glass-soft);
   border: 1px solid var(--glass-line);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
-  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  backdrop-filter: blur(22px) saturate(1.6);
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 @utility page-bg {
@@ -184,6 +194,14 @@
     radial-gradient(45% 50% at 100% 40%, var(--glow2), transparent 70%),
     radial-gradient(60% 45% at 50% 100%, var(--glow3), transparent 70%),
     var(--bg);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
 
 @utility najdi {

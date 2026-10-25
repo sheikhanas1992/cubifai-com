@@ -11,7 +11,7 @@ export function Hero() {
           <h1 className="h2-section" style={{ fontSize: "clamp(2.1rem,4.4vw,3.2rem)", color: "var(--fg)" }}>
             {t.hero.h1} <span className="text-gradient">{t.hero.h1Grad}</span>
           </h1>
-          <p className="mt-6 mx-auto lg:mx-0 max-w-xl text-lg" style={{ color: "var(--fg2)" }}>
+          <p className="mt-6 mx-auto lg:mx-0 max-w-xl text-lg font-medium" style={{ color: "var(--fg2)" }}>
             {t.hero.sub}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">

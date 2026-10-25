@@ -110,6 +110,27 @@ export const en = {
       },
     ],
   },
+  demos: {
+    eyebrow: "See It In Action",
+    h2: "Real Conversations, Real Agents",
+    lede: "No mockups. These are actual CUBIFAI agents handling real inquiries.",
+    items: [
+      {
+        title: "WhatsApp Agent: Automotive",
+        text: "A buyer asks about inventory on WhatsApp. The agent replies in Arabic with live stock, location and photos.",
+        src: "/videos/automotive_whatsapp_demo.mp4",
+        poster: "/videos/automotive_demo_poster.jpg",
+        label: "Play the automotive WhatsApp agent demo",
+      },
+      {
+        title: "Voice Agent: Real Estate",
+        text: "A caller asks about a project. The agent answers in Arabic, qualifies the lead and books a consultant.",
+        src: "/videos/realestate_voice_demo.mp4",
+        poster: "/videos/realestate_demo_poster.jpg",
+        label: "Play the real estate voice agent demo",
+      },
+    ],
+  },
   how: {
     eyebrow: "How it works",
     h2: "Live in Three Steps",

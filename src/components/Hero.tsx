@@ -7,7 +7,20 @@ export function Hero() {
     <section className="section-y px-4">
       <div className="mx-auto max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="text-center lg:text-start">
-          <div className="eyebrow mb-5">{t.hero.eyebrow}</div>
+          <div
+            className="inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 mb-6"
+            style={{
+              background: "var(--chip)",
+              border: "1px solid var(--glass-line)",
+              boxShadow: "0 8px 24px -10px rgba(111,147,216,0.45), inset 0 1px 0 rgba(255,255,255,0.08)",
+            }}
+          >
+            <span className="relative flex size-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "var(--accent-text)" }} />
+              <span className="relative inline-flex rounded-full size-2.5" style={{ background: "var(--accent-text)" }} />
+            </span>
+            <span className="eyebrow">{t.hero.eyebrow}</span>
+          </div>
           <h1 className="h2-section" style={{ fontSize: "clamp(2.1rem,4.4vw,3.2rem)", color: "var(--fg)" }}>
             {t.hero.h1} <span className="text-gradient">{t.hero.h1Grad}</span>
           </h1>

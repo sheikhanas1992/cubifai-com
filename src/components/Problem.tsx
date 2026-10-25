@@ -7,7 +7,6 @@ export function Problem() {
     <section className="section-y px-4">
       <div className="mx-auto max-w-[1100px]">
         <Reveal>
-          <div className="eyebrow text-center mb-3">{t.problem.eyebrow}</div>
           <h2 className="h2-section text-center max-w-[720px] mx-auto" style={{ color: "var(--fg)" }}>
             {t.problem.h2}
           </h2>

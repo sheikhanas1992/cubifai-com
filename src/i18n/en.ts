@@ -80,7 +80,7 @@ export const en = {
     lede: "One system, six specialists. Every inquiry, call and lead handled the moment it arrives.",
     agents: [
       {
-        name: "AI Receptionist",
+        name: "Vceptionist",
         text: "Picks up every call in natural Arabic or English, qualifies the caller, books appointments, and hands off to your team live when it matters.",
         replaces: "The ringing phone nobody picks up after 6pm.",
       },
@@ -401,6 +401,8 @@ export const en = {
   footer: {
     tagline: "Arabic-first AI agents for Saudi Arabia and the GCC",
     privacy: "Privacy",
+    emailLabel: "Email us",
+    linkedinLabel: "Connect on LinkedIn",
     copyright: "© 2026 CUBIFAI. All rights reserved.",
   },
   book: {

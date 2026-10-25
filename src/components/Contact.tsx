@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Mail } from "lucide-react";
 import { useI18n } from "@/i18n/context";
 import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { normalizeWhatsapp } from "@/lib/phone";
-import { WEB3FORMS_ACCESS_KEY } from "@/lib/constants";
+import { WEB3FORMS_ACCESS_KEY, SUPPORT_EMAIL } from "@/lib/constants";
 import type { PlanId } from "@/lib/pricing";
 import { Reveal } from "./Reveal";
 
@@ -263,13 +263,16 @@ export function Contact({ plan }: { plan?: PlanId }) {
               </p>
             )}
             {status === "not_configured" && (
-              <p className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
-                This form isn't fully set up yet. Please email{" "}
-                <a href="mailto:ceo@cubifai.com" style={{ color: "#ff8080", textDecoration: "underline" }}>
-                  ceo@cubifai.com
-                </a>{" "}
-                directly for now.
-              </p>
+              <div className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
+                <p>This form isn't fully set up yet. Please contact us directly for now.</p>
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}`}
+                  className="mt-2 inline-flex items-center gap-2 underline"
+                  style={{ color: "#ff8080" }}
+                >
+                  <Mail size={15} strokeWidth={2.25} /> Email us
+                </a>
+              </div>
             )}
 
             <button

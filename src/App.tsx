@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { LANG_KEY } from "./i18n/context";
 import { Site } from "./components/Site";
 import { Privacy } from "./routes/Privacy";
+import { BookDemo } from "./routes/BookDemo";
 import { en } from "./i18n/en";
 import { ar } from "./i18n/ar";
 
@@ -28,6 +29,8 @@ export default function App() {
         <Route path="/" element={<RootRedirect />} />
         <Route path="/en" element={<Site lang="en" dict={en} />} />
         <Route path="/ar" element={<Site lang="ar" dict={ar} />} />
+        <Route path="/en/book" element={<BookDemo lang="en" dict={en} />} />
+        <Route path="/ar/book" element={<BookDemo lang="ar" dict={ar} />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

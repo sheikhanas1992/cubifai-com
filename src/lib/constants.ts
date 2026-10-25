@@ -1,7 +1,6 @@
 export const SUPPORT_EMAIL = "ceo@cubifai.com";
 
-// TODO: replace with the real Web3Forms access key once created at
-// web3forms.com (recipients: ceo@cubifai.com and cubifai@gmail.com).
-// Fires a parallel email notification on every contact form submission;
-// does not block or affect the Supabase save if it fails.
-export const WEB3FORMS_ACCESS_KEY = "REPLACE_WITH_REAL_WEB3FORMS_ACCESS_KEY";
+// Fires a parallel email notification on every contact form submission
+// (recipients: ceo@cubifai.com and cubifai@gmail.com); does not block or
+// affect the Supabase save if it fails.
+export const WEB3FORMS_ACCESS_KEY = "7f55c983-d42f-4aa4-bfc4-532af4532d0c";

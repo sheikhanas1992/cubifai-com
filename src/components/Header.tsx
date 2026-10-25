@@ -18,6 +18,7 @@ export function Header({ lang }: { lang: Lang }) {
           <a href="#pricing">{t.nav.pricing}</a>
           <a href="#how">{t.nav.how}</a>
           <a href="#contact">{t.nav.contact}</a>
+          <Link to={`/${lang}/book`}>{t.nav.book}</Link>
         </nav>
         <div className="flex items-center gap-3">
           <Link to={other} className="text-sm" style={{ color: "var(--fg2)" }} aria-label={t.nav.langLabel}>

@@ -27,6 +27,7 @@ export const en = {
     pricing: "Pricing",
     how: "How it works",
     contact: "Contact",
+    book: "Book a Demo",
     cta: "Start Free Trial",
     menu: "Menu",
     close: "Close",
@@ -401,6 +402,12 @@ export const en = {
     tagline: "Arabic-first AI agents for Saudi Arabia and the GCC",
     privacy: "Privacy",
     copyright: "© 2026 CUBIFAI. All rights reserved.",
+  },
+  book: {
+    eyebrow: "Book a Demo",
+    h2: "See CUBIFAI Working for Your Business",
+    lede: "Pick a time below. 30 minutes, no pressure, no slides, just your real inquiries handled live.",
+    back: "Back to home",
   },
   privacy: {
     title: "Privacy Policy",

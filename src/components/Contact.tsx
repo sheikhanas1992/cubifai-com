@@ -31,7 +31,7 @@ export function Contact({ plan }: { plan?: PlanId }) {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "not_configured">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   function toggleLang(key: string) {
     setLanguages((prev) => (prev.includes(key) ? prev.filter((l) => l !== key) : [...prev, key]));
@@ -49,10 +49,6 @@ export function Contact({ plan }: { plan?: PlanId }) {
       setStatus("error");
       return;
     }
-    if (!supabaseConfigured) {
-      setStatus("not_configured");
-      return;
-    }
     setStatus("sending");
     const combinedMessage = [
       message,
@@ -63,45 +59,53 @@ export function Contact({ plan }: { plan?: PlanId }) {
       .filter(Boolean)
       .join(" | ");
 
-    const insert = supabase.from("leads").insert({
-      name,
-      company,
-      industry,
-      city: city || null,
-      whatsapp: normalizedWhatsapp,
-      email: email || null,
-      solution: solution ? [solution] : [],
-      languages,
-      message: combinedMessage,
-      plan_interest: plan ?? null,
-      consent: true,
-    });
+    // Web3Forms is the primary delivery path: it only needs the hardcoded
+    // access key below, so it works even if Supabase was never configured
+    // in this deployment. Supabase is best-effort on top of that.
+    let web3formsOk = false;
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New CUBIFAI lead: ${company}`,
+          from_name: "CUBIFAI website",
+          name,
+          company,
+          industry,
+          city,
+          whatsapp: normalizedWhatsapp,
+          email,
+          message: combinedMessage,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      web3formsOk = res.ok && data?.success !== false;
+    } catch (err) {
+      console.error("web3forms submit failed", err);
+    }
 
-    const notify = fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New CUBIFAI lead: ${company}`,
-        from_name: "CUBIFAI website",
+    let supabaseOk = false;
+    if (supabaseConfigured) {
+      const { error } = await supabase.from("leads").insert({
         name,
         company,
         industry,
-        city,
+        city: city || null,
         whatsapp: normalizedWhatsapp,
-        email,
+        email: email || null,
+        solution: solution ? [solution] : [],
+        languages,
         message: combinedMessage,
-      }),
-    }).catch(() => {});
-
-    const { error } = await insert;
-    await notify;
-    if (error) {
-      console.error("lead insert failed", error);
-      setStatus("error");
-      return;
+        plan_interest: plan ?? null,
+        consent: true,
+      });
+      if (error) console.error("lead insert failed", error);
+      supabaseOk = !error;
     }
-    setStatus("sent");
+
+    setStatus(web3formsOk || supabaseOk ? "sent" : "error");
   }
 
   if (status === "sent") {
@@ -258,13 +262,8 @@ export function Contact({ plan }: { plan?: PlanId }) {
             </label>
 
             {status === "error" && (
-              <p className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
-                {t.contact.error}
-              </p>
-            )}
-            {status === "not_configured" && (
               <div className="mt-4 text-sm font-semibold" style={{ color: "#ff8080" }}>
-                <p>This form isn't fully set up yet. Please contact us directly for now.</p>
+                <p>{t.contact.error}</p>
                 <a
                   href={`mailto:${SUPPORT_EMAIL}`}
                   className="mt-2 inline-flex items-center gap-2 underline"
